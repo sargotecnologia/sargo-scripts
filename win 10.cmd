@@ -1,4 +1,6 @@
-echo off
+Rem Versão 19.11.01 
+
+@echo off
 
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management" /v DisablePagingExecutive /t REG_DWORD /d  00000001 /f 
 
@@ -21,8 +23,17 @@ reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" 
 reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" /v TCPTimedWaitDelay /t REG_DWORD /d 0000001e /f
  
  
+ipconfig /flushdns
+
+netsh int tcp set global congestionprovider=ctcp 
+netsh int tcp set global dca=enabled
+netsh int tcp set global ecncapability=enabled
+netsh int tcp set global chimney=enabled
 
 
 powercfg /hibernate off
+
+
+
  
 pause
